@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "lh_traffic_accidents_silver"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d88be3d3-0366-4b14-8cdc-3169eb414f58"
+  }
+}
