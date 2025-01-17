@@ -146,7 +146,7 @@ for column in columns:
 
 df = df.withColumn("weather_id", regexp_replace("weather_id", "/", ""))\
     .withColumn("road_condition_id", regexp_replace("road_condition_id", "/", ""))\
-    .withColumn("collision_type_id", regexp_replace("road_condition_id", "/", ""))
+    .withColumn("collision_type_id", regexp_replace("collision_type_id", "A", "99"))
 
 # METADATA ********************
 
