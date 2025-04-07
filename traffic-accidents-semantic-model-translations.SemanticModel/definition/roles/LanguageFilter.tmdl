@@ -1,0 +1,7 @@
+role LanguageFilter
+	modelPermission: read
+
+	tablePermission Languages = [LanguageId] == [culture]
+
+	annotation PBI_Id = 26a95e8bfb0647adaa1647b2aa3da527
+

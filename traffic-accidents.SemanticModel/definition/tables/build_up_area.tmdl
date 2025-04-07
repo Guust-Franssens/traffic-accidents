@@ -1,0 +1,65 @@
+/// Dimension table containing information on the area building up to the accident, examples:
+/// - unknown
+/// - inside built-up area
+/// - outside built-up area
+table build_up_area
+	lineageTag: cfa8996b-d87b-4535-b1c8-9d62a024a863
+	sourceLineageTag: [dbo].[build_up_area]
+
+	column build_up_area_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 91cd1236-efe6-44fe-a7f6-b40e03a5d540
+		sourceLineageTag: build_up_area_id
+		summarizeBy: none
+		sourceColumn: build_up_area_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description containing information on the area building up to the accident, examples:
+	/// - inconnu
+	/// - Hors agglomération
+	/// - En agglomération
+	column build_up_area_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 9bb96da7-5ac2-44a7-8e6d-5bb51a26000f
+		sourceLineageTag: build_up_area_fr
+		summarizeBy: none
+		sourceColumn: build_up_area_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description containing information on the area building up to the accident, examples:
+	/// - onbekend
+	/// - buiten bebouwde kom
+	/// - binnen bebouwde kom
+	column build_up_area_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8c64e6eb-0f60-4fe3-9965-27d9574e4579
+		sourceLineageTag: build_up_area_nl
+		summarizeBy: none
+		sourceColumn: build_up_area_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition build_up_area = entity
+		mode: directLake
+		source
+			entityName: build_up_area
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

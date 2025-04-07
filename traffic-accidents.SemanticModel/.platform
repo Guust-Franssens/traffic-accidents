@@ -1,12 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "Notebook",
-    "displayName": "notebook_silver",
-    "description": "New notebook"
+    "type": "SemanticModel",
+    "displayName": "traffic-accidents"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "b765f3c8-7bd8-46a3-ad55-87d071c9e18a"
+    "logicalId": "58cb968f-53f4-af4a-4878-ff8361a8f472"
   }
 }

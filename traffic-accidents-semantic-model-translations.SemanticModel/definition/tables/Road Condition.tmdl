@@ -1,0 +1,64 @@
+/// Dimension table containing information on the road condition at the location of the accident. examples: 
+/// - dry
+/// - snowy
+/// - wet
+table 'Road Condition'
+	lineageTag: 0ddaa641-ac13-47cd-a9d8-b2a6581db950
+
+	/// road condition at the time of the accident, examples:
+	/// - dry
+	/// - snowy
+	/// - wet
+	column 'Road Condition'
+		lineageTag: 9629d470-f624-45e7-b0ba-8118858edeee
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: 11830586-1dec-4f9d-9839-94e9f66a68cb
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: e270a972-7569-4404-be03-1e96d32bfbf5
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: e408b419-26ca-4b45-9556-8133560d1cda
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Road Condition' = calculated
+		mode: import
+		source =
+				{
+				    ("État des routes", NAMEOF('road_condition'[road_condition_fr]), 0, "fr"),
+				    ("Staat van de weg", NAMEOF('road_condition'[road_condition_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = dc9a76fe59e9438ca963afc4d1e6e9c0
+

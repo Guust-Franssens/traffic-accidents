@@ -1,0 +1,66 @@
+/// Dimension table containing information on the road condition at the location of the accident. examples: 
+/// - dry
+/// - snowy,
+/// - wet
+table road_condition
+	lineageTag: e1da2f61-ce7e-4597-93ad-acdb7b3e2da8
+	sourceLineageTag: [dbo].[road_condition]
+
+	column road_condition_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0adee5c2-63e3-4f31-b1f4-ce68ae33a95b
+		sourceLineageTag: road_condition_id
+		summarizeBy: none
+		sourceColumn: road_condition_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description on the road condition at the time of the accident, examples:
+	/// - Sec+Sale (sable, gravier, feuilles,...)
+	/// - Verglas, neige+Propre
+	/// - Verglas, neige+Sale (sable, gravier, feuilles,...)
+	column road_condition_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 599dbcd1-ba9d-455c-8231-1ea8d475d6b4
+		sourceLineageTag: road_condition_fr
+		summarizeBy: none
+		sourceColumn: road_condition_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description on the road condition at the time of the accident, examples:
+	/// - Droog+Vuil (zand, grint, bladeren,...)
+	/// - Proper
+	/// - Nat, plassen+Proper
+	/// 
+	column road_condition_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 840d03f6-0242-4711-a77e-af00669c0914
+		sourceLineageTag: road_condition_nl
+		summarizeBy: none
+		sourceColumn: road_condition_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition road_condition = entity
+		mode: directLake
+		source
+			entityName: road_condition
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

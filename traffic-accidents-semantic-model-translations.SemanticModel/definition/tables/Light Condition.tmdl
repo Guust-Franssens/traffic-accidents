@@ -1,0 +1,60 @@
+/// Dimension table containing information on the light conditions at the time of the accident.
+/// examples: day, unknown, break of dawn, night with no streetlights,  night with unlit streetlights, night with lit streetlights
+/// 
+table 'Light Condition'
+	lineageTag: 41232d4f-0451-455d-824e-12d39c1e359c
+
+	/// light conditions when the accident occurred, examples: day, unknown, break of dawn, night with no streetlights,  night with unlit streetlights, night with lit streetlights
+	column 'Light Condition'
+		lineageTag: 8900c3f1-4bc2-4c60-bbc5-8c7fe969cd3b
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: 2253167f-1911-42af-b817-5dc68785d88e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: 53b80cc9-6d65-465f-9c90-1bcb4bcf7ba5
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: 82d75251-2268-4f40-a06c-7dd4d73eacbd
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Light Condition' = calculated
+		mode: import
+		source =
+				{
+				    ("Conditions de luminosité", NAMEOF('light_condition'[light_condition_fr]), 0, "fr"),
+				    ("Lichtomstandigheden", NAMEOF('light_condition'[light_condition_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = ce60f63c26ea40bd8f5e8374f82823b7
+

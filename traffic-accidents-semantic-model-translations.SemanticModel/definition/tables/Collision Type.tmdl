@@ -1,0 +1,64 @@
+/// Dimension table containing information about with what the road user(s) collided, examples:
+/// - with a pedastrian
+/// - frontal collision between two drivers
+/// - road user against object on the road
+table 'Collision Type'
+	lineageTag: 91d765d4-08a9-4ffa-a7a6-41d83bf10f1f
+
+	/// Description of what the road user(s) collided with, examples:
+	/// - with a pedastrian
+	/// - frontal collision between two drivers
+	/// - road user against object on the road
+	column 'Collision Type'
+		lineageTag: a6e1f805-1d28-4696-acf9-1d2a91deda5d
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: 4b0d8090-fe63-41ef-876d-25a90356a69f
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: 8455b3a7-c685-49dd-a47e-a6307b040601
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: f8607795-427c-4f49-b93f-5a2f773e695b
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Collision Type' = calculated
+		mode: import
+		source =
+				{
+				    ("Type de collision", NAMEOF('collision_type'[collision_type_fr]), 0, "fr"),
+				    ("Type botsing", NAMEOF('collision_type'[collision_type_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = c85c7fc53ebc40aa959dfb69df7d25a3
+

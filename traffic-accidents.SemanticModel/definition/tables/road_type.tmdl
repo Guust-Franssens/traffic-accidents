@@ -1,0 +1,62 @@
+/// Dimension table containing information on condition of the road. 
+/// 
+/// Examples: 
+/// Unknown, Municipal road, highway, regional road
+table road_type
+	lineageTag: 622193c3-343d-483e-81f4-72fff37401db
+	sourceLineageTag: [dbo].[road_type]
+
+	column road_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9ea8271c-603a-4d0f-8503-e3edefc72302
+		sourceLineageTag: road_type_id
+		summarizeBy: none
+		sourceColumn: road_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the road condition:
+	/// inconnu, Route communale, Autoroute, Route régionale
+	/// 
+	column road_type_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 60d73770-051e-483e-8186-cbfaff234a5c
+		sourceLineageTag: road_type_fr
+		summarizeBy: none
+		sourceColumn: road_type_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the road condition:
+	/// onbekend, Gemeenteweg, Autosnelweg, Gewestweg
+	column road_type_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: eff04d29-c90b-42a2-b614-31c9cc84d773
+		sourceLineageTag: road_type_nl
+		summarizeBy: none
+		sourceColumn: road_type_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition road_type = entity
+		mode: directLake
+		source
+			entityName: road_type
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,65 @@
+/// Dimension table that contains information on the health of the involved parties.
+/// 
+/// important to know, fatally injured means that the person survived the initial accident but later passed away in the next 30 days after the accident.
+/// 
+/// 
+/// Examples: fatally injured, with deaths, severely injured, lightly injured
+/// 
+table 'Accident Type'
+	lineageTag: 0acd60cc-c36c-4cd2-8736-203a85e77902
+
+	/// health condition of the involved parties Examples: fatally injured, with deaths, severely injured, lightly injured
+	column 'Accident Type'
+		lineageTag: 78a6a1d2-fd25-4eab-bfa5-a8e86edaa2a7
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: c86c1325-fce4-499e-a099-0d9b81ac762c
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: 080ce8e3-3af9-4281-afd1-908f595f3d58
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: e7b9bd9f-8aa8-45c1-ae6d-b0a30a649af8
+		summarizeBy: none
+		sourceColumn: [Value4]
+		sortByColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Accident Type' = calculated
+		mode: import
+		source =
+				{
+				    ("Type d’accident", NAMEOF('accident_type'[accident_type_fr]), 0, "fr"),
+				    ("Soort ongeval", NAMEOF('accident_type'[accident_type_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = c1e10bb3798b428986eccc61ae9b11c7
+

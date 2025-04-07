@@ -1,0 +1,64 @@
+/// Dimension table containing information if there were any obstacles involved during the traffic accident, examples:
+/// - animal on the road
+/// - roadworks
+/// - tree outside of the road
+table Obstacle
+	lineageTag: 45947602-7550-449e-bf4a-a885c2223b96
+
+	/// description about if any obstacles were involved during the traffic accident, examples:
+	/// - animal on the road
+	/// - roadworks
+	/// - tree outside of the road
+	column Obstacle
+		lineageTag: 20a6b707-8740-4cfe-9402-d9e5c7593a7a
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: b2c4deb5-b6c9-47f6-867a-50134eefcb38
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: ba8f2c0c-9799-4481-9d66-75b77578ac21
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: b86ad72b-dfe8-4683-a832-4b98f167847f
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Obstacle = calculated
+		mode: import
+		source =
+				{
+				    ("Obstacle", NAMEOF('obstacle_'[obstacle_fr]), 0, "fr"),
+				    ("Hindernis", NAMEOF('obstacle_'[obstacle_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = 5bad01a1665f424890d7f8cf3fb415c1
+

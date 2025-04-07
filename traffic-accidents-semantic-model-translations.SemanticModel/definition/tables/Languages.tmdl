@@ -1,0 +1,67 @@
+table Languages
+	lineageTag: d2300af4-d159-45d8-8668-bd757d556dc3
+
+	measure culture = IF(LEFT(USERCULTURE(), 2) IN {"fr", "nl"}, LEFT(USERCULTURE(), 2), "nl")
+		lineageTag: 181bcec0-da2c-4326-bb59-7e48d097e592
+
+		changedProperty = IsHidden
+
+	measure 'Title map color' =
+			
+			SWITCH([culture],
+			    "nl", "Klik op een categorie om deze te gebruiken als legende in de kaart",
+			    "fr", "Cliquez sur une catégorie pour l’utiliser comme légende sur la carte",
+			    "Click on a category to use it as legend in the map"
+			)
+		lineageTag: ac6036a5-33dd-4250-91a0-ea52eef17874
+
+	column Language
+		dataType: string
+		isHidden
+		lineageTag: 274121d7-f468-469c-9619-a94b31afaa2b
+		summarizeBy: none
+		sourceColumn: Language
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		dataType: string
+		isHidden
+		lineageTag: 72fb56bd-a439-4863-9cae-b72396a16042
+		summarizeBy: none
+		sourceColumn: LanguageId
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e7e47d13-88ae-4371-b9be-d8335350829e
+		summarizeBy: none
+		sourceColumn: SortOrder
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Languages = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45Wcs1Lz8kszlDSUUrNAxO6ocFA2lApVidayaW0JBkklZcDJnSdXIG0EVjKrSg1DyyXVgQmdN2CgLSxUmwsAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Language = _t, LanguageId = _t, DefaultCulture = _t, SortOrder = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Language", type text}, {"LanguageId", type text}, {"DefaultCulture", type text}, {"SortOrder", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"DefaultCulture"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,137 @@
+relationship AutoDetected_3ff49136-f8fc-41ed-87ee-e8ce066f5437
+	fromColumn: traffic_accidents.build_up_area_id
+	toColumn: build_up_area.build_up_area_id
+
+relationship AutoDetected_2b889263-841b-4fa2-bb47-af609e0c431e
+	fromColumn: traffic_accidents.accident_type_id
+	toColumn: accident_type.accident_type_id
+
+relationship AutoDetected_f373aacf-75fc-4fad-aeca-7dece51c9b69
+	fromColumn: traffic_accidents.collision_type_id
+	toColumn: collision_type.collision_type_id
+
+relationship AutoDetected_a1425429-1a2f-436e-b275-5f6dc44770e5
+	fromColumn: traffic_accidents.crossway_id
+	toColumn: crossway_.crossway_id
+
+relationship AutoDetected_f399db38-ddaa-41b0-b8ab-725ea6b8429e
+	fromColumn: traffic_accidents.first_road_user_id
+	toColumn: first_road_user.first_road_user_id
+
+relationship AutoDetected_755021d0-ef90-4762-bedc-be5f0990a80f
+	fromColumn: traffic_accidents.nis_code
+	toColumn: location.nis_code
+
+relationship AutoDetected_b20d5b60-e6a1-40e5-ae52-5cb74707d161
+	fromColumn: traffic_accidents.light_condition_id
+	toColumn: light_condition.light_condition_id
+
+relationship AutoDetected_6a64c52a-8ccd-40da-bf49-fe7adfa598bf
+	fromColumn: traffic_accidents.obstacle_id
+	toColumn: obstacle_.obstacle_id
+
+relationship AutoDetected_f130ce71-42e1-470c-ae83-aee92273a932
+	fromColumn: traffic_accidents.road_type_id
+	toColumn: road_type.road_type_id
+
+relationship AutoDetected_fe5d5462-06f0-4809-b020-dd6d531b0b57
+	fromColumn: traffic_accidents.second_road_user_id
+	toColumn: second_road_user.second_road_user_id
+
+relationship AutoDetected_db562873-c1c3-4dc7-bcee-b19c58949bba
+	fromColumn: traffic_accidents.road_condition_id
+	toColumn: road_condition.road_condition_id
+
+relationship AutoDetected_20a5daef-c41d-452b-8a06-86dc9fb8fe10
+	fromColumn: traffic_accidents.weather_id
+	toColumn: weather_.weather_id
+
+relationship 39e4e734-3dde-3ae4-2832-e9423c544041
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Languages.LanguageId
+	toColumn: 'Accident Type'.LanguageId
+
+relationship cb508a8f-439c-a891-cdd6-f76092f998fc
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Weather.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship 9a49fda8-8934-bf5d-89f3-1ca39eda1467
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Second Road User'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship 0aa1270e-9a32-51a4-47f4-813818dc0932
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Road Type'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship 22f28347-32a5-cf44-42de-96709abc4831
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Languages.LanguageId
+	toColumn: 'Road Condition'.LanguageId
+
+relationship b5c5a364-537b-79e6-b686-62965fb10f78
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Location Region'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship c107e44a-463a-1ec4-f575-3602bfcdbd8b
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Location Province'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship 4276d602-1967-3a57-7712-11312e2b56a7
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Light Condition'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship ceae01e7-d3f2-28f1-245e-d7fa3aa040cd
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'First Road User'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship 0f3d81bb-d053-d069-fe65-2a4df1e71b59
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Crossway.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship 578b82fe-4992-92c5-6282-290b13945f59
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Collision Type'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship f47ab032-b935-5650-2f65-b9d12d02a9fd
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Build Up Area'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship b7155e6b-b79f-1b27-2950-bb8349830eaa
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Location Municipality'.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship 77dd417d-0ce0-4d5b-99ab-6f4a4417cabc
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Obstacle.LanguageId
+	toColumn: Languages.LanguageId
+
+relationship fef9f8f6-48f9-3086-e91b-afb7519dd2da
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Parameter map color'.LanguageId
+	toColumn: Languages.LanguageId
+

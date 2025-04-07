@@ -1,0 +1,58 @@
+/// Dimension table containing the province in which the accident took place
+table 'Location Province'
+	lineageTag: ddf4d1e6-0244-4685-8c4d-f9740bdf7c32
+
+	/// Province in which the accident took place
+	column 'Location Province'
+		lineageTag: d3fed280-30aa-4619-91dc-35ef2624a9d9
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: 480378e5-f537-4733-8103-328f45814c1d
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: 40d68c93-8a7e-45f8-8ed2-d5553e053999
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: e259095a-102f-4657-a92f-1c737a87bd97
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Location Province' = calculated
+		mode: import
+		source =
+				{
+				    ("Province", NAMEOF('location'[province_fr]), 0, "fr"),
+				    ("Provincie", NAMEOF('location'[province_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = 07d8bab25ffb4162b4e5a3a35503428e
+

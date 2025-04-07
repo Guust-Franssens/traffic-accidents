@@ -1,0 +1,62 @@
+/// Dimension table containing information of the second road user. A traffic accident can have one or two involved road users. There is another table called "first_road_user" that contains the information of the other party.
+table second_road_user
+	isHidden
+	lineageTag: 1d5cfc9a-26cc-4a7a-8382-75467e7f7bac
+
+	column second_road_user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3046a1a1-cce7-4395-87bc-8916fff60450
+		summarizeBy: none
+		sourceColumn: second_road_user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of the second road user, some examples:
+	/// - Camion
+	/// - Camionnette
+	/// - Voiture
+	/// 
+	column second_road_user_fr
+		dataType: string
+		isHidden
+		lineageTag: a6453750-1aae-4b8b-b039-4e82dc12a306
+		summarizeBy: none
+		sourceColumn: second_road_user_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of the second road user, some examples:
+	/// - Vrachtwagen
+	/// - Lichte vrachtauto
+	/// - personenauto
+	/// 
+	column second_road_user_nl
+		dataType: string
+		isHidden
+		lineageTag: 26ba3dd0-5c9a-4d1a-b90b-6dfa6dd05d7a
+		summarizeBy: none
+		sourceColumn: second_road_user_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition second_road_user = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_second_road_user = Source{[Schema="dbo",Item="second_road_user"]}[Data]
+				in
+				    dbo_second_road_user
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Exception
+

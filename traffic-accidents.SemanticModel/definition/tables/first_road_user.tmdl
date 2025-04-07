@@ -1,0 +1,64 @@
+/// Dimension table containing information of the first road user. A traffic accident can have one or two involved road users. There is another table called "second_road_user" that contains the information of the other party.
+table first_road_user
+	lineageTag: 339c2f72-6192-4f44-a3ef-cc9b1e90301a
+	sourceLineageTag: [dbo].[first_road_user]
+
+	column first_road_user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 84f509ed-42ca-4e17-a263-ad51ec79408f
+		sourceLineageTag: first_road_user_id
+		summarizeBy: none
+		sourceColumn: first_road_user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of the first road user, some examples:
+	/// - Camion
+	/// - Camionnette
+	/// - Voiture
+	/// 
+	column first_road_user_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ad68e7d1-e104-4077-8a5f-94922449b27d
+		sourceLineageTag: first_road_user_fr
+		summarizeBy: none
+		sourceColumn: first_road_user_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of the first road user, some examples:
+	/// - Vrachtwagen
+	/// - Lichte vrachtauto
+	/// - personenauto
+	/// 
+	column first_road_user_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 2aaa866e-c1e2-4d75-85bc-13f3177eeed7
+		sourceLineageTag: first_road_user_nl
+		summarizeBy: none
+		sourceColumn: first_road_user_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition first_road_user = entity
+		mode: directLake
+		source
+			entityName: first_road_user
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

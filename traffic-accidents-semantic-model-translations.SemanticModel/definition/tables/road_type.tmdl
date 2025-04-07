@@ -1,0 +1,60 @@
+/// Dimension table containing information on type of road. 
+/// 
+/// Examples: 
+/// Unknown, Municipal road, highway, regional road
+table road_type
+	isHidden
+	lineageTag: 659cb45b-feae-412b-9d23-0d5f31124211
+
+	column road_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 665271dd-0fad-4816-8043-5acc10b2e4a6
+		summarizeBy: none
+		sourceColumn: road_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the road condition:
+	/// inconnu, Route communale, Autoroute, Route régionale
+	/// 
+	column road_type_fr
+		dataType: string
+		isHidden
+		lineageTag: 31796123-e87a-4b0d-b205-c537df92cda2
+		summarizeBy: none
+		sourceColumn: road_type_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the road type:
+	/// onbekend, Gemeenteweg, Autosnelweg, Gewestweg
+	column road_type_nl
+		dataType: string
+		isHidden
+		lineageTag: 7eb4c077-973e-4299-bef9-611d0ea65cbb
+		summarizeBy: none
+		sourceColumn: road_type_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition road_type = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_road_type = Source{[Schema="dbo",Item="road_type"]}[Data]
+				in
+				    dbo_road_type
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Exception
+

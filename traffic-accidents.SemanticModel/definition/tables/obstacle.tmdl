@@ -1,0 +1,65 @@
+/// Dimension table containing information if there were any obstacles involved during the traffic accident, examples:
+/// - animal on the road
+/// - roadworks
+/// - tree outside of the road
+table obstacle
+	lineageTag: 935352a6-c4e0-4f94-aa7a-0107788b05c8
+	sourceLineageTag: [dbo].[obstacle]
+
+	column obstacle_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 1dc28b4f-b4c1-40f2-813e-92a5f7fd0f01
+		sourceLineageTag: obstacle_id
+		summarizeBy: none
+		sourceColumn: obstacle_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description about if any obstacles were involved during the traffic accident, examples:
+	/// - Sur la chaussée: Ralentisseur de trafic, dos d'âne
+	/// - Pas d’obstacle
+	/// - Rail de tram
+	column obstacle_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1f73a307-82b2-4ba9-a677-6d8a74595486
+		sourceLineageTag: obstacle_fr
+		summarizeBy: none
+		sourceColumn: obstacle_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description about if any obstacles were involved during the traffic accident, examples:
+	/// - Op de rijbaan: Verkeersdrempel, ezelsrug
+	/// - Buiten de rijbaan: Omheining
+	/// - Op de rijbaan: Dier (wild dier)
+	column obstacle_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8c815221-d0eb-41b1-aeab-5bf0a1c83181
+		sourceLineageTag: obstacle_nl
+		summarizeBy: none
+		sourceColumn: obstacle_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition obstacle = entity
+		mode: directLake
+		source
+			entityName: obstacle
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

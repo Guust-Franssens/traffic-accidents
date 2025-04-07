@@ -1,0 +1,63 @@
+/// Dimension table containing information if there were any obstacles involved during the traffic accident, examples:
+/// - animal on the road
+/// - roadworks
+/// - tree outside of the road
+table obstacle_
+	isHidden
+	lineageTag: 0f00a802-1d58-4619-9ffe-b1a45fc264a3
+
+	column obstacle_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 88ac0a77-475f-4b8f-b76b-54345560f4dd
+		summarizeBy: none
+		sourceColumn: obstacle_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description about if any obstacles were involved during the traffic accident, examples:
+	/// - Sur la chaussée: Ralentisseur de trafic, dos d'âne
+	/// - Pas d’obstacle
+	/// - Rail de tram
+	column obstacle_fr
+		dataType: string
+		isHidden
+		lineageTag: f6e6e385-f8c4-4c6d-ac2f-61591979a9aa
+		summarizeBy: none
+		sourceColumn: obstacle_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description about if any obstacles were involved during the traffic accident, examples:
+	/// - Op de rijbaan: Verkeersdrempel, ezelsrug
+	/// - Buiten de rijbaan: Omheining
+	/// - Op de rijbaan: Dier (wild dier)
+	column obstacle_nl
+		dataType: string
+		isHidden
+		lineageTag: 3d3c963c-a666-4440-bd15-c471efb342ee
+		summarizeBy: none
+		sourceColumn: obstacle_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition obstacle_ = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_obstacle = Source{[Schema="dbo",Item="obstacle"]}[Data]
+				in
+				    dbo_obstacle
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+

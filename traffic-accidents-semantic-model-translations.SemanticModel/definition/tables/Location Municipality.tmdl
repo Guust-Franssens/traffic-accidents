@@ -1,0 +1,58 @@
+/// Dimension table containing the municipality in which the accident took place
+table 'Location Municipality'
+	lineageTag: 829aa33f-636b-4286-9476-81c86c767ea2
+
+	/// Municipality where the accident took place
+	column 'Location Municipality'
+		lineageTag: f33ed1fc-083e-47b3-9623-33d97b3eca02
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: 154323a3-784f-48fe-a0f2-9135eebc44fd
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: e5d127f3-f4fe-4a1c-9a5e-3b2d2983675f
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: c0fa005d-3268-40f5-83bc-84eb5ac72466
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Location Municipality' = calculated
+		mode: import
+		source =
+				{
+				    ("Municipalité", NAMEOF('location'[municipality_fr]), 0, "fr"),
+				    ("Gemeente", NAMEOF('location'[municipality_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = d1261d846d1f4050b0440aa69bba7b31
+

@@ -1,0 +1,57 @@
+relationship 12cbadc9-f30a-8713-52a1-707fd5da00a3
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.first_road_user_id
+	toColumn: first_road_user.first_road_user_id
+
+relationship 0b906764-8f2b-9e1c-9044-01d963e04621
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.second_road_user_id
+	toColumn: second_road_user.second_road_user_id
+
+relationship 5c817cdf-de1c-0f3a-5bb4-af354da67f4a
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.weather_id
+	toColumn: weather.weather_id
+
+relationship 9626c14d-6974-acc6-e836-7dd1f013d075
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.collision_type_id
+	toColumn: collision_type.collision_type_id
+
+relationship 2481e463-3039-a3dc-c444-c78ecd18bc20
+	fromColumn: traffic_accidents.build_up_area_id
+	toColumn: build_up_area.build_up_area_id
+
+relationship b030b474-9269-247f-2f91-5721b835e5de
+	fromColumn: traffic_accidents.accident_type_id
+	toColumn: accident_type.accident_type_id
+
+relationship 90063844-3d4a-75f0-81b2-1a408712e50d
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.crossway_id
+	toColumn: crossway.crossway_id
+
+relationship 0622db7a-8c7d-66cb-6794-541277566c5b
+	fromColumn: traffic_accidents.obstacle_id
+	toColumn: obstacle.obstacle_id
+
+relationship 89217033-c41e-c710-5800-0d2b3fb0c529
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.nis_code
+	toColumn: location.nis_code
+
+relationship 937e018b-7b5f-20e6-4d4b-a0e058816ba8
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.road_type_id
+	toColumn: road_type.road_type_id
+
+relationship 01776d3b-de66-f188-a45b-fd52219c4963
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.light_condition_id
+	toColumn: light_condition.light_condition_id
+
+relationship 1b9bd5dd-d4eb-69cb-90a1-689ab596252d
+	relyOnReferentialIntegrity
+	fromColumn: traffic_accidents.road_condition_id
+	toColumn: road_condition.road_condition_id
+

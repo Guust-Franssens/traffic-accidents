@@ -41,7 +41,7 @@
 # CELL ********************
 
 from pyproj import Transformer
-from pyspark.sql.functions import regexp_replace, col, udf
+from pyspark.sql.functions import regexp_replace, col, udf, when
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, FloatType
 
 
@@ -68,49 +68,49 @@ df = spark.sql("SELECT * FROM lh_traffic_accidents_bronze.traffic_accidents")
 column_mapping = {
 	"DT_YEAR_COLLISION": "year",
 	"DT_MONTH_COLLISION": "month",
-	"DT_TIME": "time",
+	"DT_TIME": "hour",
 	"CD_NIS": "nis_code",
-	"TX_RGN_COLLISION_FR": "description_region_in_french",
-	"TX_RGN_COLLISION_NL": "description_region_in_dutch",
-	"TX_PROV_COLLISION_FR": "description_province_in_french",
-	"TX_PROV_COLLISION_NL": "description_province_in_dutch",
-	"TX_MUNTY_COLLISION_FR": "description_municipality_in_french",
-	"TX_MUNTY_COLLISION_NL": "description_municipality_in_dutch",
+	"TX_RGN_COLLISION_FR": "region_fr",
+	"TX_RGN_COLLISION_NL": "region_nl",
+	"TX_PROV_COLLISION_FR": "province_fr",
+	"TX_PROV_COLLISION_NL": "province_nl",
+	"TX_MUNTY_COLLISION_FR": "municipality_fr",
+	"TX_MUNTY_COLLISION_NL": "municipality_nl",
 	"MS_X_COORD": "x_coord_belgian_lambert",
 	"MS_Y_COORD": "y_coord_belgian_lambert",
 	"CD_CROSSWAY": "crossway_id",
-	"TX_CROSSWAY_FR": "description_crossway_in_french",
-	"TX_CROSSWAY_NL": "description_crossway_in_dutch",
+	"TX_CROSSWAY_FR": "crossway_fr",
+	"TX_CROSSWAY_NL": "crossway_nl",
 	"CD_WEATHER": "weather_id",
-	"TX_WEATHER_FR": "description_weather_in_french",
-	"TX_WEATHER_NL": "description_weather_in_dutch",
+	"TX_WEATHER_FR": "weather_fr",
+	"TX_WEATHER_NL": "weather_nl",
 	"CD_ROAD_CONDITION": "road_condition_id",
-	"TX_ROAD_CONDITION_FR": "description_road_condition_in_french",
-	"TX_ROAD_CONDITION_NL": "description_road_condition_in_dutch",
+	"TX_ROAD_CONDITION_FR": "road_condition_fr",
+	"TX_ROAD_CONDITION_NL": "road_condition_nl",
 	"CD_BUILD_UP_AREA": "build_up_area_id",
-	"TX_BUILD_UP_AREA_FR": "description_build_up_area_in_french",
-	"TX_BUILD_UP_AREA_NL": "description_build_up_area_in_dutch",
+	"TX_BUILD_UP_AREA_FR": "build_up_area_fr",
+	"TX_BUILD_UP_AREA_NL": "build_up_area_nl",
 	"CD_LIGHT_CONDITION": "light_condition_id",
-	"TX_LIGHT_CONDITION_FR": "description_light_condition_in_french",
-	"TX_LIGHT_CONDITION_NL": "description_light_condition_in_dutch",
+	"TX_LIGHT_CONDITION_FR": "light_condition_fr",
+	"TX_LIGHT_CONDITION_NL": "light_condition_nl",
 	"CD_ROAD_TYPE": "road_type_id",
-	"CD_ROAD_TYPE_FR": "description_road_type_in_french",
-	"CD_ROAD_TYPE_NL": "description_road_type_in_dutch",
+	"CD_ROAD_TYPE_FR": "road_type_fr",
+	"CD_ROAD_TYPE_NL": "road_type_nl",
 	"CD_CLASS_ACCIDENTS": "accident_type_id",
-	"TX_CLASS_ACCIDENTS_FR": "description_accident_type_in_french",
-	"TX_CLASS_ACCIDENTS_NL": "description_accident_type_in_dutch",
+	"TX_CLASS_ACCIDENTS_FR": "accident_type_fr",
+	"TX_CLASS_ACCIDENTS_NL": "accident_type_nl",
 	"CD_ROAD_USR_TYPE1": "first_road_user_id",
-	"TX_ROAD_USR_TYPE1_FR": "description_first_road_user_in_french",
-	"TX_ROAD_USR_TYPE1_NL": "description_first_road_user_in_dutch",
+	"TX_ROAD_USR_TYPE1_FR": "first_road_user_fr",
+	"TX_ROAD_USR_TYPE1_NL": "first_road_user_nl",
 	"CD_ROAD_USR_TYPE2": "second_road_user_id",
-	"TX_ROAD_USR_TYPE2_FR": "description_second_road_user_in_french",
-	"TX_ROAD_USR_TYPE2_NL": "description_second_road_user_in_dutch",
+	"TX_ROAD_USR_TYPE2_FR": "second_road_user_fr",
+	"TX_ROAD_USR_TYPE2_NL": "second_road_user_nl",
 	"CD_COLLISION_TYPE": "collision_type_id",
-	"TX_COLLISON_TYPE_FR": "description_collision_type_in_french",
-	"TX_COLLISION_TYPE_NL": "description_collision_type_in_dutch",
+	"TX_COLLISON_TYPE_FR": "collision_type_fr",
+	"TX_COLLISION_TYPE_NL": "collision_type_nl",
 	"CD_OBSTACLES": "obstacle_id",
-	"TX_OBSTACLES_FR": "description_obstacle_in_french",
-	"TX_OBSTACLES_NL": "description_obstacle_in_dutch",
+	"TX_OBSTACLES_FR": "obstacle_fr",
+	"TX_OBSTACLES_NL": "obstacle_nl",
 }
 df = df.select(*[col(old).alias(new) for old, new in column_mapping.items()])
 
@@ -125,6 +125,18 @@ df = df.select(*[col(old).alias(new) for old, new in column_mapping.items()])
 # MARKDOWN ********************
 
 # ## Simple transformations
+
+# CELL ********************
+
+# any hour not between 0 and 23 should be set to null
+df = df.withColumn("hour", when((col("hour") < 0) | (col("hour") > 23), None).otherwise(col("hour")))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
 
 # CELL ********************
 
@@ -195,47 +207,47 @@ df = df.withColumn("latitude", df["coordinates"].getItem("latitude")) \
 
 df = df.withColumn("year", col("year").cast("int")) \
 	.withColumn("month", col("month").cast("int")) \
-	.withColumn("time", col("time").cast("int")) \
+	.withColumn("hour", col("hour").cast("int")) \
 	.withColumn("nis_code", col("nis_code").cast("int")) \
-	.withColumn("description_region_in_french", col("description_region_in_french").cast("string")) \
-	.withColumn("description_region_in_dutch", col("description_region_in_dutch").cast("string")) \
-	.withColumn("description_province_in_french", col("description_province_in_french").cast("string")) \
-	.withColumn("description_province_in_dutch", col("description_province_in_dutch").cast("string")) \
-	.withColumn("description_municipality_in_french", col("description_municipality_in_french").cast("string")) \
-	.withColumn("description_municipality_in_dutch", col("description_municipality_in_dutch").cast("string")) \
+	.withColumn("region_fr", col("region_fr").cast("string")) \
+	.withColumn("region_nl", col("region_nl").cast("string")) \
+	.withColumn("province_fr", col("province_fr").cast("string")) \
+	.withColumn("province_nl", col("province_nl").cast("string")) \
+	.withColumn("municipality_fr", col("municipality_fr").cast("string")) \
+	.withColumn("municipality_nl", col("municipality_nl").cast("string")) \
 	.withColumn("crossway_id", col("crossway_id").cast("int")) \
-	.withColumn("description_crossway_in_french", col("description_crossway_in_french").cast("string")) \
-	.withColumn("description_crossway_in_dutch", col("description_crossway_in_dutch").cast("string")) \
+	.withColumn("crossway_fr", col("crossway_fr").cast("string")) \
+	.withColumn("crossway_nl", col("crossway_nl").cast("string")) \
 	.withColumn("weather_id", col("weather_id").cast("int")) \
-	.withColumn("description_weather_in_french", col("description_weather_in_french").cast("string")) \
-	.withColumn("description_weather_in_dutch", col("description_weather_in_dutch").cast("string")) \
+	.withColumn("weather_fr", col("weather_fr").cast("string")) \
+	.withColumn("weather_nl", col("weather_nl").cast("string")) \
 	.withColumn("road_condition_id", col("road_condition_id").cast("int")) \
-	.withColumn("description_road_condition_in_french", col("description_road_condition_in_french").cast("string")) \
-	.withColumn("description_road_condition_in_dutch", col("description_road_condition_in_dutch").cast("string")) \
+	.withColumn("road_condition_fr", col("road_condition_fr").cast("string")) \
+	.withColumn("road_condition_nl", col("road_condition_nl").cast("string")) \
 	.withColumn("build_up_area_id", col("build_up_area_id").cast("int")) \
-	.withColumn("description_build_up_area_in_french", col("description_build_up_area_in_french").cast("string")) \
-	.withColumn("description_build_up_area_in_dutch", col("description_build_up_area_in_dutch").cast("string")) \
+	.withColumn("build_up_area_fr", col("build_up_area_fr").cast("string")) \
+	.withColumn("build_up_area_nl", col("build_up_area_nl").cast("string")) \
 	.withColumn("light_condition_id", col("light_condition_id").cast("int")) \
-	.withColumn("description_light_condition_in_french", col("description_light_condition_in_french").cast("string")) \
-	.withColumn("description_light_condition_in_dutch", col("description_light_condition_in_dutch").cast("string")) \
+	.withColumn("light_condition_fr", col("light_condition_fr").cast("string")) \
+	.withColumn("light_condition_nl", col("light_condition_nl").cast("string")) \
 	.withColumn("road_type_id", col("road_type_id").cast("int")) \
-	.withColumn("description_road_type_in_french", col("description_road_type_in_french").cast("string")) \
-	.withColumn("description_road_type_in_dutch", col("description_road_type_in_dutch").cast("string")) \
+	.withColumn("road_type_fr", col("road_type_fr").cast("string")) \
+	.withColumn("road_type_nl", col("road_type_nl").cast("string")) \
 	.withColumn("accident_type_id", col("accident_type_id").cast("int")) \
-	.withColumn("description_accident_type_in_french", col("description_accident_type_in_french").cast("string")) \
-	.withColumn("description_accident_type_in_dutch", col("description_accident_type_in_dutch").cast("string")) \
+	.withColumn("accident_type_fr", col("accident_type_fr").cast("string")) \
+	.withColumn("accident_type_nl", col("accident_type_nl").cast("string")) \
 	.withColumn("first_road_user_id", col("first_road_user_id").cast("int")) \
-	.withColumn("description_first_road_user_in_french", col("description_first_road_user_in_french").cast("string")) \
-	.withColumn("description_first_road_user_in_dutch", col("description_first_road_user_in_dutch").cast("string")) \
+	.withColumn("first_road_user_fr", col("first_road_user_fr").cast("string")) \
+	.withColumn("first_road_user_nl", col("first_road_user_nl").cast("string")) \
 	.withColumn("second_road_user_id", col("second_road_user_id").cast("int")) \
-	.withColumn("description_second_road_user_in_french", col("description_second_road_user_in_french").cast("string")) \
-	.withColumn("description_second_road_user_in_dutch", col("description_second_road_user_in_dutch").cast("string")) \
+	.withColumn("second_road_user_fr", col("second_road_user_fr").cast("string")) \
+	.withColumn("second_road_user_nl", col("second_road_user_nl").cast("string")) \
 	.withColumn("collision_type_id", col("collision_type_id").cast("int")) \
-	.withColumn("description_collision_type_in_french", col("description_collision_type_in_french").cast("string")) \
-	.withColumn("description_collision_type_in_dutch", col("description_collision_type_in_dutch").cast("string")) \
+	.withColumn("collision_type_fr", col("collision_type_fr").cast("string")) \
+	.withColumn("collision_type_nl", col("collision_type_nl").cast("string")) \
 	.withColumn("obstacle_id", col("obstacle_id").cast("int")) \
-	.withColumn("description_obstacle_in_french", col("description_obstacle_in_french").cast("string")) \
-	.withColumn("description_obstacle_in_dutch", col("description_obstacle_in_dutch").cast("string")) \
+	.withColumn("obstacle_fr", col("obstacle_fr").cast("string")) \
+	.withColumn("obstacle_nl", col("obstacle_nl").cast("string")) \
 	.withColumn("latitude", col("latitude").cast("float")) \
 	.withColumn("longitude", col("longitude").cast("float"))
 
@@ -248,7 +260,7 @@ df = df.withColumn("year", col("year").cast("int")) \
 
 # CELL ********************
 
-df.write.mode("overwrite").format("delta").saveAsTable("traffic_accidents")
+df.write.mode("overwrite").option("overwriteSchema", "true").format("delta").saveAsTable("traffic_accidents")
 
 # METADATA ********************
 

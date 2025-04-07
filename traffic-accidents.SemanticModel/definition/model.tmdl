@@ -1,0 +1,33 @@
+model Model
+	culture: en-US
+	collation: Latin1_General_100_BIN2_UTF8
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBIDesktopVersion = 2.140.7525.1 (Main)+f63a344f9e090b82fbceba81dbe5d0be83564d27
+
+annotation PBI_QueryOrder = ["DatabaseQuery"]
+
+annotation PBI_ProTooling = ["WebModelingEdit","RemoteModeling"]
+
+ref table obstacle
+ref table weather
+ref table road_type
+ref table collision_type
+ref table accident_type
+ref table light_condition
+ref table traffic_accidents
+ref table first_road_user
+ref table build_up_area
+ref table location
+ref table road_condition
+ref table crossway
+ref table second_road_user
+
+ref cultureInfo en-US
+

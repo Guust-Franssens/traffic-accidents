@@ -1,0 +1,72 @@
+table 'Parameter map color'
+	lineageTag: 6995eaaf-4869-465b-8ffa-4f81640b2374
+
+	column Parameter
+		lineageTag: 3b155cbb-1cbb-4b45-811f-153dbb317e95
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 2c0b2a40-4054-4ffc-9b6a-0a1f6c5a032b
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 014d66dc-5fd5-4901-b70d-9741036d3839
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: 12a631c2-c561-4818-8d29-fcbf2cccd48c
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parameter map color' = calculated
+		mode: import
+		source =
+				{
+				    ("Soort ongeval", NAMEOF('accident_type'[accident_type_nl]), 0, "nl"),
+				    ("Type accident", NAMEOF('accident_type'[accident_type_fr]), 1, "fr"),
+				    ("Bebouwde kom", NAMEOF('build_up_area'[build_up_area_nl]), 2, "nl"),
+				    ("Agglomeration", NAMEOF('build_up_area'[build_up_area_fr]), 3, "fr"),
+				    ("Hindernis", NAMEOF(obstacle_[obstacle_nl]), 4, "nl"),
+				    ("Obstacle", NAMEOF(obstacle_[obstacle_fr]), 5, "fr"),
+				    ("Staat van de weg", NAMEOF(road_condition[road_condition_nl]), 6, "nl"),
+				    ("État des routes", NAMEOF(road_condition[road_condition_fr]), 7, "fr"),
+				    ("Type weg", NAMEOF(road_type[road_type_nl]), 8, "nl"),
+				    ("Type de route", NAMEOF(road_type[road_type_fr]), 9, "fr"),
+				    ("Carrefour", NAMEOF('crossway_'[crossway_fr]), 10, "fr"),
+				    ("Kruispunt", NAMEOF('crossway_'[crossway_nl]), 11, "nl"),
+				    ("Metéo", NAMEOF('weather_'[weather_fr]), 12, "fr"),
+				    ("Weer", NAMEOF('weather_'[weather_nl]), 13, "nl"),
+				    ("Conditions de luminosité", NAMEOF('light_condition'[light_condition_fr]), 14, "fr"),
+				    ("Lichtomstandigheden", NAMEOF('light_condition'[light_condition_nl]), 15, "nl"),
+				    ("Type de collision", NAMEOF('collision_type'[collision_type_fr]), 16, "fr"),
+				    ("Type botsing", NAMEOF('collision_type'[collision_type_nl]), 17, "nl")
+				}
+
+	annotation PBI_Id = 579a38e4b6774627a450a76ed082a38e
+

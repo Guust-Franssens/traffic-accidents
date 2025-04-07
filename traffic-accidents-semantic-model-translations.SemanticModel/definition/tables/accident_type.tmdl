@@ -1,0 +1,67 @@
+/// Dimension table that contains information on the health of the involved parties.
+/// 
+/// important to know, fatally injured means that the person survived the initial accident but later passed away in the next 30 days after the accident.
+/// 
+/// 
+/// Examples: fatally injured, with deaths, severely injured, lightly injured
+/// 
+table accident_type
+	isHidden
+	lineageTag: 3c7c765d-96f4-4d36-bc32-3cae56a08ad1
+
+	column accident_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: abb5f181-db97-4728-b7ea-f89867ea73bb
+		summarizeBy: none
+		sourceColumn: accident_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the health condition of the involved parties:
+	/// Avec blessé(s) grave(s)
+	/// Mortellement blessé(s)
+	/// Avec tué(s)
+	/// Avec blessé(s) leger(s)
+	/// 
+	column accident_type_fr
+		dataType: string
+		isHidden
+		lineageTag: da9f5a7f-f890-448b-889f-3fdb8341084d
+		summarizeBy: none
+		sourceColumn: accident_type_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the health condition of the involved parties:
+	/// met zwaargewonden
+	/// dodelijk gewonden
+	/// Met doden
+	/// met lichtgewonden
+	column accident_type_nl
+		dataType: string
+		isHidden
+		lineageTag: b46df31e-4cba-4c4d-b5a1-1c5ef2cf88b7
+		summarizeBy: none
+		sourceColumn: accident_type_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition accident_type = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_accident_type = Source{[Schema="dbo",Item="accident_type"]}[Data]
+				in
+				    dbo_accident_type
+
+	changedProperty = IsHidden
+

@@ -1,0 +1,65 @@
+/// Dimension table containing information about with what the road user(s) collided, examples:
+/// - with a pedastrian
+/// - frontal collision between two drivers
+/// - road user against object on the road
+table collision_type
+	lineageTag: db7a8bbc-1428-4987-950e-3fb859cc5c45
+	sourceLineageTag: [dbo].[collision_type]
+
+	column collision_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: eb89b30d-32da-4897-847d-c84e18f6ddbf
+		sourceLineageTag: collision_type_id
+		summarizeBy: none
+		sourceColumn: collision_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of what the road user(s) collided with, examples:
+	/// - Autre ou inconnu
+	/// - Usager contre obstacle situé hors chaussée
+	/// - Entre 2 conducteurs: Flanc contre flanc
+	column collision_type_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 2b7581fd-7e51-4c0e-8eb0-4fc223764291
+		sourceLineageTag: collision_type_fr
+		summarizeBy: none
+		sourceColumn: collision_type_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of what the road user(s) collided with, examples:
+	/// - Met een voetganger
+	/// - Weggebruiker tegen hindernis op de rijbaan
+	/// - Tussen 2 bestuurders: Frontale botsing
+	column collision_type_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8b7013e5-880c-40b2-8083-edcb8f937ea9
+		sourceLineageTag: collision_type_nl
+		summarizeBy: none
+		sourceColumn: collision_type_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition collision_type = entity
+		mode: directLake
+		source
+			entityName: collision_type
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

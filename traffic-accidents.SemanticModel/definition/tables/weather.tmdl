@@ -1,0 +1,65 @@
+/// Dimension table containing information on the weather conditions at the time of the accident, examples: 
+/// - Raining
+/// - strong wind
+/// - normal
+table weather
+	lineageTag: c7cda010-0f0a-49e8-bb54-9f7e0696c98e
+	sourceLineageTag: [dbo].[weather]
+
+	column weather_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a38d5405-09da-4208-9add-604b488db50f
+		sourceLineageTag: weather_id
+		summarizeBy: none
+		sourceColumn: weather_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of the weather conditions at the time of the accident, examples: 
+	/// - Pluie+Grêle
+	/// - Chutes de neige
+	/// - Pluie+Brouillard (visibilité de moins de 100m)
+	column weather_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1baad2c5-b2ae-469e-8b59-cfed6cbd2832
+		sourceLineageTag: weather_fr
+		summarizeBy: none
+		sourceColumn: weather_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of the weather conditions at the time of the accident, examples: 
+	/// - Regenval+Hagelbui
+	/// - Sneeuwval
+	/// - Mist (zichtbaarheid minder dan 100m)
+	column weather_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 2c2497f0-8164-46f0-8123-98ea5601dbab
+		sourceLineageTag: weather_nl
+		summarizeBy: none
+		sourceColumn: weather_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition weather = entity
+		mode: directLake
+		source
+			entityName: weather
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,61 @@
+/// Dimension table containing information of the first road user. A traffic accident can have one or two involved road users. There is another table called "second_road_user" that contains the information of the other party.
+table 'First Road User'
+	lineageTag: 0711f8d9-566a-4bb8-a843-bb8ce85aa2dd
+
+	/// description of the first road user, some examples:
+	/// - car
+	/// - truck
+	/// - pedestrian
+	column 'First Road User'
+		lineageTag: 07e498d3-665c-4564-af37-2cf9d687f216
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: 2280fa79-50ee-4157-abaf-5aa7890e4eb1
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: d7abe251-36cc-40ef-bd97-974aceeb7e2e
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: ae92f92b-374b-4af7-ae64-b70d83562cf9
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'First Road User' = calculated
+		mode: import
+		source =
+				{
+				    ("Primaire usager de la route", NAMEOF('first_road_user'[first_road_user_fr]), 0, "fr"),
+				    ("Eerste weggebruiker", NAMEOF('first_road_user'[first_road_user_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = 25d16e8b38684cfe849f2d3d0331e1cd
+

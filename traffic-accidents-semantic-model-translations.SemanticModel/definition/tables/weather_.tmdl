@@ -1,0 +1,65 @@
+/// Dimension table containing information on the weather conditions at the time of the accident, examples: 
+/// - Raining
+/// - strong wind
+/// - normal
+table weather_
+	isHidden
+	lineageTag: ac85219e-9508-48cc-b363-61ae1fcd74c4
+
+	column weather_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4766271b-1212-495f-81c2-30cbcc3c8dde
+		summarizeBy: none
+		sourceColumn: weather_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of the weather conditions at the time of the accident, examples: 
+	/// - Pluie+Grêle
+	/// - Chutes de neige
+	/// - Pluie+Brouillard (visibilité de moins de 100m)
+	column weather_fr
+		dataType: string
+		isHidden
+		lineageTag: 6f191fbc-9975-493c-a353-d388d9abc2dc
+		summarizeBy: none
+		sourceColumn: weather_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of the weather conditions at the time of the accident, examples: 
+	/// - Regenval+Hagelbui
+	/// - Sneeuwval
+	/// - Mist (zichtbaarheid minder dan 100m)
+	column weather_nl
+		dataType: string
+		isHidden
+		lineageTag: 371c3945-275c-4701-93d7-453d8782a316
+		summarizeBy: none
+		sourceColumn: weather_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition weather_ = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_weather = Source{[Schema="dbo",Item="weather"]}[Data]
+				in
+				    dbo_weather
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Exception
+

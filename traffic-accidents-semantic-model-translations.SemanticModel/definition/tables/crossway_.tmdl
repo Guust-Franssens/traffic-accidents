@@ -1,0 +1,63 @@
+/// Dimension table containing information on if the accident took place at a crossway, three options possible:
+/// - unknown
+/// - outside of a crossing,
+/// - at a crossing
+table crossway_
+	isHidden
+	lineageTag: ffca9734-86a4-4814-abc9-05e125d671f5
+
+	column crossway_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b44f61eb-c8e8-41fd-8c51-862267891371
+		summarizeBy: none
+		sourceColumn: crossway_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of whether the accident took place at a crossing, possible values:
+	/// - inconnu
+	/// - Hors carrefour
+	/// - Carrefour
+	column crossway_fr
+		dataType: string
+		isHidden
+		lineageTag: 7b621c52-c003-4283-ad6e-155c8f56cb44
+		summarizeBy: none
+		sourceColumn: crossway_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of whether the accident took place at a crossing, possible values:
+	/// - onbekend
+	/// - Buiten Kruispunt
+	/// - Op Kruispunt
+	column crossway_nl
+		dataType: string
+		isHidden
+		lineageTag: f9421f1d-d613-4363-94a6-968b745609cf
+		summarizeBy: none
+		sourceColumn: crossway_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition crossway_ = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_crossway = Source{[Schema="dbo",Item="crossway"]}[Data]
+				in
+				    dbo_crossway
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+

@@ -1,0 +1,61 @@
+/// Dimension table containing information about with what the road user(s) collided, examples:
+/// - with a pedastrian
+/// - frontal collision between two drivers
+/// - road user against object on the road
+table collision_type
+	isHidden
+	lineageTag: a8e75383-e006-4ada-bfc4-a46c8f313d6c
+
+	column collision_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 01e5d7f9-74d6-43bc-97ca-36825a43247b
+		summarizeBy: none
+		sourceColumn: collision_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of what the road user(s) collided with, examples:
+	/// - Autre ou inconnu
+	/// - Usager contre obstacle situé hors chaussée
+	/// - Entre 2 conducteurs: Flanc contre flanc
+	column collision_type_fr
+		dataType: string
+		isHidden
+		lineageTag: 02327781-9330-44cb-b9a7-58558669a2af
+		summarizeBy: none
+		sourceColumn: collision_type_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of what the road user(s) collided with, examples:
+	/// - Met een voetganger
+	/// - Weggebruiker tegen hindernis op de rijbaan
+	/// - Tussen 2 bestuurders: Frontale botsing
+	column collision_type_nl
+		dataType: string
+		isHidden
+		lineageTag: 14fd0172-db4e-4e82-82a0-d2503f5e2592
+		summarizeBy: none
+		sourceColumn: collision_type_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition collision_type = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_collision_type = Source{[Schema="dbo",Item="collision_type"]}[Data]
+				in
+				    dbo_collision_type
+
+	changedProperty = IsHidden
+

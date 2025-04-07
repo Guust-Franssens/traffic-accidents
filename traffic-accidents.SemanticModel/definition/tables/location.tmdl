@@ -1,0 +1,126 @@
+/// Dimension table containing information in which zip code and thus municipality, province and region the accident took place.
+table location
+	lineageTag: 39b36b8b-571a-4386-9898-496568f8dc6e
+	sourceLineageTag: [dbo].[location]
+
+	/// The NIS code (Dutch: NIS-code, French: code INS) is a numeric code for regional areas of Belgium. This code is used for statistical data treatment in Belgium.
+	column nis_code
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ca77a530-ef6a-477c-8f5e-9137e1763e33
+		sourceLineageTag: nis_code
+		summarizeBy: none
+		sourceColumn: nis_code
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the region the accident took place. Examples: 
+	/// - Région wallonne
+	/// - Région de Bruxelles-Capitale
+	/// - Région flamande
+	column region_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: da629132-ad22-407b-83f2-042b50aff5b9
+		sourceLineageTag: region_fr
+		summarizeBy: none
+		sourceColumn: region_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the region the accident took place. Examples:
+	/// - Waals Gewest
+	/// - Vlaams Gewest
+	/// - Brussels Hoofdstedelijk Gewest
+	column region_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 5bc780f2-bac3-4077-ac53-fd08f2deef6c
+		sourceLineageTag: region_nl
+		summarizeBy: none
+		sourceColumn: region_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the province the accident took place. Examples: 
+	/// - Province de Flandre orientale
+	/// - Province du Limbourg
+	/// - Province de Liège
+	column province_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 8ea3536e-3e8b-4417-b305-26f83fa8538c
+		sourceLineageTag: province_fr
+		summarizeBy: none
+		sourceColumn: province_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the province the accident took place. Examples: 
+	/// - Provincie Henegouwen
+	/// - Provincie Luik
+	/// - Provincie Antwerpen
+	column province_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 5ded7fe3-844c-40d2-81f4-77b312bd0b91
+		sourceLineageTag: province_nl
+		summarizeBy: none
+		sourceColumn: province_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the municipality the accident took place. Examples: 
+	/// - Perwez (Nivelles)
+	/// - Nieuport
+	/// - Wevelgem
+	column municipality_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b3c93f7e-62e1-49de-ac73-2624e0e5f8c5
+		sourceLineageTag: municipality_fr
+		summarizeBy: none
+		sourceColumn: municipality_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the municipality the accident took place. Examples:
+	/// - Stabroek
+	/// - Beringen
+	/// - Villers-Le-Bouillet
+	column municipality_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: a8f7c3d4-a934-4996-91fb-05dea932eaf9
+		sourceLineageTag: municipality_nl
+		summarizeBy: none
+		sourceColumn: municipality_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition location = entity
+		mode: directLake
+		source
+			entityName: location
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

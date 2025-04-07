@@ -1,0 +1,71 @@
+/// Dimension table containing information on the light conditions at the time of the accident.
+/// examples: day, unknown, break of dawn, night with no streetlights,  night with unlit streetlights, night with lit streetlights
+/// 
+table light_condition
+	lineageTag: 63ab8cf5-06c0-497d-93db-ce23428f46b4
+	sourceLineageTag: [dbo].[light_condition]
+
+	column light_condition_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 10848fc0-8b02-47e2-85c8-154fc15e6c19
+		sourceLineageTag: light_condition_id
+		summarizeBy: none
+		sourceColumn: light_condition_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the light conditions when the accident occurred:
+	/// - Nuit, éclairage public présent, mais pas allumé
+	/// - Nuit, pas d'éclairage public présent
+	/// - Inconnu, indéterminé
+	/// - Aube, crépuscule
+	/// - Nuit, éclairage public présent et allumé
+	/// - Jour
+	///  
+	column light_condition_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 58149400-67bd-410b-b1ea-5ab46fce61c7
+		sourceLineageTag: light_condition_fr
+		summarizeBy: none
+		sourceColumn: light_condition_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the light conditions when the accident occurred:
+	/// - Nacht, openb. verlicht. aanw., maar niet ontstoken
+	/// - Nacht, geen openbare verlichting aanwezig
+	/// - Onbekend
+	/// - Dageraad - schemering
+	/// - Nacht, openbare verlichting aanwezig en ontstoken
+	/// - Dag
+	column light_condition_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: a300c5d3-de15-4977-a8c2-71c2cf5a7a12
+		sourceLineageTag: light_condition_nl
+		summarizeBy: none
+		sourceColumn: light_condition_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition light_condition = entity
+		mode: directLake
+		source
+			entityName: light_condition
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

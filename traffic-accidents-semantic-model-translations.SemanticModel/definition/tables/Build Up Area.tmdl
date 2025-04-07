@@ -1,0 +1,66 @@
+/// Dimension table containing information on the area building up to the accident, examples:
+/// - unknown
+/// - inside built-up area
+/// - outside built-up area
+table 'Build Up Area'
+	lineageTag: 8eb18a25-e29a-4ac9-a468-ded1c1d0df2f
+
+	/// description containing information on the area building up to the accident
+	/// 
+	/// examples:
+	/// - unknown
+	/// - inside built-up area
+	/// - outside built-up area
+	column 'Build Up Area'
+		lineageTag: e8801721-c017-4339-951f-df3db45f531b
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: b4be3c74-c011-4ba1-ba86-a93c088006e9
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: d03e7e7c-1dcc-40cb-bc6d-81c94c0699e5
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: 241854ea-68e8-4084-a51b-82ebd3323d8d
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Build Up Area' = calculated
+		mode: import
+		source =
+				{
+				    ("Agglomération", NAMEOF('build_up_area'[build_up_area_fr]), 0, "fr"),
+				    ("Bebouwde kom", NAMEOF('build_up_area'[build_up_area_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = e6298374ffae44cfbbf910b7a4094b05
+

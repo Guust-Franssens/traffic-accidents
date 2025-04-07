@@ -1,0 +1,12 @@
+cultureInfo fr-FR
+	translations
+		model Model
+			table traffic_accidents
+				caption: Accident de traffic
+				column year
+					caption: année
+				column month
+					caption: mois
+				column hour
+					caption: heure
+

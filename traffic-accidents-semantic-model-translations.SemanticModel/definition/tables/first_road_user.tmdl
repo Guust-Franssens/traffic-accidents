@@ -1,0 +1,60 @@
+/// Dimension table containing information of the first road user. A traffic accident can have one or two involved road users. There is another table called "second_road_user" that contains the information of the other party.
+table first_road_user
+	isHidden
+	lineageTag: 8a35b699-fde5-42ef-b06b-7fbf25bbd4b4
+
+	column first_road_user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7747e414-c685-49b7-a90c-b226929e44fd
+		summarizeBy: none
+		sourceColumn: first_road_user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of the first road user, some examples:
+	/// - Camion
+	/// - Camionnette
+	/// - Voiture
+	/// 
+	column first_road_user_fr
+		dataType: string
+		isHidden
+		lineageTag: 46c1a439-a6f3-4ddd-8698-c591a9e3ea7e
+		summarizeBy: none
+		sourceColumn: first_road_user_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of the first road user, some examples:
+	/// - Vrachtwagen
+	/// - Lichte vrachtauto
+	/// - personenauto
+	/// 
+	column first_road_user_nl
+		dataType: string
+		isHidden
+		lineageTag: 150367e2-af36-4356-b275-939650ff147e
+		summarizeBy: none
+		sourceColumn: first_road_user_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition first_road_user = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_first_road_user = Source{[Schema="dbo",Item="first_road_user"]}[Data]
+				in
+				    dbo_first_road_user
+
+	changedProperty = IsHidden
+

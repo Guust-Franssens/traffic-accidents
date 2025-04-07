@@ -1,0 +1,64 @@
+/// Dimension table containing information on the weather conditions at the time of the accident, examples: 
+/// - Raining
+/// - strong wind
+/// - normal
+table Weather
+	lineageTag: 1d7cbf02-b11b-4d2c-b3c1-59c60fa9587f
+
+	/// description of the weather conditions at the time of the accident, examples:
+	/// - Raining
+	/// - strong wind
+	/// - normal
+	column Weather
+		lineageTag: f2c8c19c-c1b1-4fc9-bded-faf71dee882d
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: 08747dbe-3a50-46dc-b3da-0d9ed637bb20
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: f564d7a7-f798-440e-991f-7fccbc3aef42
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: 1f24afb5-8dd4-48e0-afc5-714571957924
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Weather = calculated
+		mode: import
+		source =
+				{
+				    ("Metéo", NAMEOF('weather_'[weather_fr]), 0, "fr"),
+				    ("Weer", NAMEOF('weather_'[weather_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = c0f6e9f6cb2d42f9b80f0427af8f4f4d
+

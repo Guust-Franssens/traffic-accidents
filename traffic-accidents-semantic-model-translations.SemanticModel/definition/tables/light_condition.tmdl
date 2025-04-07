@@ -1,0 +1,67 @@
+/// Dimension table containing information on the light conditions at the time of the accident.
+/// examples: day, unknown, break of dawn, night with no streetlights,  night with unlit streetlights, night with lit streetlights
+/// 
+table light_condition
+	isHidden
+	lineageTag: 71f9fa68-4562-41eb-afbf-8bc148c85841
+
+	column light_condition_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 85615338-185f-464e-931c-96584c1690f4
+		summarizeBy: none
+		sourceColumn: light_condition_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the light conditions when the accident occurred:
+	/// - Nuit, éclairage public présent, mais pas allumé
+	/// - Nuit, pas d'éclairage public présent
+	/// - Inconnu, indéterminé
+	/// - Aube, crépuscule
+	/// - Nuit, éclairage public présent et allumé
+	/// - Jour
+	///  
+	column light_condition_fr
+		dataType: string
+		isHidden
+		lineageTag: 5d5a4a01-820c-4afb-8205-e7b9986d4ed2
+		summarizeBy: none
+		sourceColumn: light_condition_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the light conditions when the accident occurred:
+	/// - Nacht, openb. verlicht. aanw., maar niet ontstoken
+	/// - Nacht, geen openbare verlichting aanwezig
+	/// - Onbekend
+	/// - Dageraad - schemering
+	/// - Nacht, openbare verlichting aanwezig en ontstoken
+	/// - Dag
+	column light_condition_nl
+		dataType: string
+		isHidden
+		lineageTag: a9e8cdbf-ed55-466e-981a-d5df9490be1e
+		summarizeBy: none
+		sourceColumn: light_condition_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition light_condition = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_light_condition = Source{[Schema="dbo",Item="light_condition"]}[Data]
+				in
+				    dbo_light_condition
+
+	changedProperty = IsHidden
+

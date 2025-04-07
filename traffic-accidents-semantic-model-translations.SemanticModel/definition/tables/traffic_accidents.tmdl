@@ -1,0 +1,236 @@
+/// Fact table where each row represents a traffic accident. The traffic accidents took place in Belgium over several years. As Belgium is multilingual, the dimension tables contain Dutch and French columns. Therefore best to check with the user if they want french or dutch.
+table traffic_accidents
+	lineageTag: b84a7748-1919-4123-a53a-9dc1fe5e42af
+
+	/// Counts the total number of traffic accidents.
+	measure number_of_traffic_accidents = ```
+			COUNTROWS(traffic_accidents) 
+			```
+		formatString: 0
+		lineageTag: 768b78a0-2ec0-4a68-ad83-9556a389cfb0
+
+		changedProperty = IsHidden
+
+	measure number_of_deadly_accidents = CALCULATE([number_of_traffic_accidents], accident_type[accident_type_nl] IN  {"Met doden", "dodelijk gewonden"})
+		formatString: 0
+		lineageTag: 75e76148-a122-4504-b1a8-ca2818abb290
+
+		changedProperty = IsHidden
+
+	/// The year when the accident took place.
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 6dc27107-1938-49db-8cb4-f07e3eb41916
+		summarizeBy: sum
+		sourceColumn: year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The month in which the accident took place (1 being January and 12 December)
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 4684ee71-8c07-4177-a3f4-7eebde668f49
+		summarizeBy: sum
+		sourceColumn: month
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The hour when the accident took place. Can be any value between 0 and 23 as well as null.
+	column hour
+		dataType: int64
+		formatString: 0
+		lineageTag: 32cceebf-ee2f-40e9-9233-9b43d77f014b
+		summarizeBy: sum
+		sourceColumn: hour
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The NIS code (Dutch: NIS-code, French: code INS) is a numeric code for regional areas of Belgium. This code is used for statistical data treatment in Belgium.
+	column nis_code
+		dataType: int64
+		formatString: 0
+		lineageTag: 1107c6d3-e262-48fb-8dda-6142f7959b8d
+		summarizeBy: none
+		sourceColumn: nis_code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Together with longitude forms the coordinates of where the accident took place.
+	column latitude
+		dataType: double
+		lineageTag: b7ee9552-e787-4c35-ae25-351dfb7b9a4b
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Together with latitude forms the coordinates of where the accident took place.
+	column longitude
+		dataType: double
+		lineageTag: 4f3c0cb2-9937-4b1d-8ffd-a61e35ed35dd
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column crossway_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 49e092ff-f131-42c3-9157-30f296af131f
+		summarizeBy: none
+		sourceColumn: crossway_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column weather_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: df53501a-e1e6-4a38-97e7-7ed36c560f30
+		summarizeBy: none
+		sourceColumn: weather_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column road_condition_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8ca7cd12-e8c6-442d-b571-8100732df02a
+		summarizeBy: none
+		sourceColumn: road_condition_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column build_up_area_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f83fd200-6454-4e91-964d-ee5696c3ca15
+		summarizeBy: none
+		sourceColumn: build_up_area_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column light_condition_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1bb05bac-c5d5-4fe0-ae05-425f5c32746f
+		summarizeBy: none
+		sourceColumn: light_condition_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column road_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 58c818e3-23ee-47a2-9eef-d96082bd1345
+		summarizeBy: none
+		sourceColumn: road_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column accident_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d698b05b-54aa-4a89-9e37-f20a5eae6131
+		summarizeBy: none
+		sourceColumn: accident_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_road_user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f076a067-0de8-4ac7-ae22-924beea65626
+		summarizeBy: none
+		sourceColumn: first_road_user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column second_road_user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3e987553-dd68-4967-b239-e674e4af4260
+		summarizeBy: none
+		sourceColumn: second_road_user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column collision_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bf91cd2f-d8e5-4478-a45d-cd3edb9ebe25
+		summarizeBy: none
+		sourceColumn: collision_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column obstacle_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4b1aa152-7ea8-4626-bafd-d46802e3300e
+		summarizeBy: none
+		sourceColumn: obstacle_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition traffic_accidents = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_traffic_accidents = Source{[Schema="dbo",Item="traffic_accidents"]}[Data]
+				in
+				    dbo_traffic_accidents
+
+	annotation PBI_ResultType = Exception
+

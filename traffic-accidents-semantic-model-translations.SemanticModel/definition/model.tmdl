@@ -1,0 +1,54 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-BE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["build_up_area","accident_type","collision_type","crossway_","first_road_user","location","light_condition","obstacle_","road_type","second_road_user","road_condition","traffic_accidents","weather_","Languages"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.140.356.0 (25.02)+34a7eeacd0df8b5924a98d4049544cf31db4fd94
+
+annotation PBI_ProTooling = ["Copilot","CopilotMeasureDescriptions","DaxCopilot_Change_Accepted_In_Desktop","TMDLView_Desktop"]
+
+annotation TranslationsBuilder = Version:2.2-Updated:2025-01-30
+
+ref table build_up_area
+ref table accident_type
+ref table collision_type
+ref table crossway_
+ref table first_road_user
+ref table location
+ref table light_condition
+ref table obstacle_
+ref table road_type
+ref table second_road_user
+ref table road_condition
+ref table traffic_accidents
+ref table weather_
+ref table 'Accident Type'
+ref table Languages
+ref table 'Build Up Area'
+ref table 'Collision Type'
+ref table Crossway
+ref table 'First Road User'
+ref table 'Light Condition'
+ref table 'Location Municipality'
+ref table 'Location Province'
+ref table 'Location Region'
+ref table Obstacle
+ref table 'Road Condition'
+ref table 'Road Type'
+ref table 'Second Road User'
+ref table Weather
+ref table 'Parameter map color'
+
+ref role LanguageFilter
+
+ref cultureInfo en-US
+ref cultureInfo nl-BE
+ref cultureInfo fr-FR
+

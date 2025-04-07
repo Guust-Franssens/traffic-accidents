@@ -1,0 +1,71 @@
+/// Dimension table that contains information on the health of the involved parties.
+/// 
+/// important to know, fatally injured means that the person survived the initial accident but later passed away in the next 30 days after the accident.
+/// 
+/// 
+/// Examples: fatally injured, with deaths, severely injured, lightly injured
+/// 
+table accident_type
+	lineageTag: 17dfd2a2-b984-4618-8d50-17224216357b
+	sourceLineageTag: [dbo].[accident_type]
+
+	column accident_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0f0da74e-e8ab-462d-9821-31abae5d2af5
+		sourceLineageTag: accident_type_id
+		summarizeBy: none
+		sourceColumn: accident_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French version of the health condition of the involved parties:
+	/// Avec blessé(s) grave(s)
+	/// Mortellement blessé(s)
+	/// Avec tué(s)
+	/// Avec blessé(s) leger(s)
+	/// 
+	column accident_type_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0013934f-8995-40aa-ac84-61408338cab7
+		sourceLineageTag: accident_type_fr
+		summarizeBy: none
+		sourceColumn: accident_type_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch version of the health condition of the involved parties:
+	/// met zwaargewonden
+	/// dodelijk gewonden
+	/// Met doden
+	/// met lichtgewonden
+	column accident_type_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b4071093-f054-4cd2-bdad-54e7336cca39
+		sourceLineageTag: accident_type_nl
+		summarizeBy: none
+		sourceColumn: accident_type_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition accident_type = entity
+		mode: directLake
+		source
+			entityName: accident_type
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

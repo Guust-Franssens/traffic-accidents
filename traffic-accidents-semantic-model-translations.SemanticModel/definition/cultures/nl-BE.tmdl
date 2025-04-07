@@ -1,0 +1,12 @@
+cultureInfo nl-BE
+	translations
+		model Model
+			table traffic_accidents
+				caption: verkeersongevallen
+				column year
+					caption: jaar
+				column month
+					caption: maand
+				column hour
+					caption: uur
+

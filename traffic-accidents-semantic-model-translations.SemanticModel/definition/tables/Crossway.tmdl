@@ -1,0 +1,64 @@
+/// Dimension table containing information on if the accident took place at a crossway, three options possible:
+/// - unknown
+/// - outside of a crossing,
+/// - at a crossing
+table Crossway
+	lineageTag: eed891b7-7abb-48d7-b553-e15e71ebee6b
+
+	/// description of whether the accident took place at a crossing, three options possible:
+	/// - unknown
+	/// - outside of a crossing,
+	/// - at a crossing
+	column Crossway
+		lineageTag: c23dcd32-8ae5-474d-868c-6938ed7d9a77
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: f45bbed2-c329-40a6-aa6c-ea53824d93ab
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: 1be8bac6-c2c0-4ecc-a87c-fa2b04aed078
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: e21cc233-f36b-472f-81df-2597f0d1e70a
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Crossway = calculated
+		mode: import
+		source =
+				{
+				    ("Carrefour", NAMEOF('crossway_'[crossway_fr]), 0, "fr"),
+				    ("Kruispunt", NAMEOF('crossway_'[crossway_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = 47c5bb156c30477eb375eca4dbf24252
+

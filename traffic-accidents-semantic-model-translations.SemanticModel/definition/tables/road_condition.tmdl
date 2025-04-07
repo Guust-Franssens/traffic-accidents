@@ -1,0 +1,64 @@
+/// Dimension table containing information on the road condition at the location of the accident. examples: 
+/// - dry
+/// - snowy,
+/// - wet
+table road_condition
+	isHidden
+	lineageTag: 31f39126-37b1-4377-8c64-638fcd3a4a1c
+
+	column road_condition_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 75ad427c-2202-451f-bd84-53aeb0cd1ae7
+		summarizeBy: none
+		sourceColumn: road_condition_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description on the road condition at the time of the accident, examples:
+	/// - Sec+Sale (sable, gravier, feuilles,...)
+	/// - Verglas, neige+Propre
+	/// - Verglas, neige+Sale (sable, gravier, feuilles,...)
+	column road_condition_fr
+		dataType: string
+		isHidden
+		lineageTag: 994d855f-ce7b-4ac2-9eed-f22676349dfd
+		summarizeBy: none
+		sourceColumn: road_condition_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description on the road condition at the time of the accident, examples:
+	/// - Droog+Vuil (zand, grint, bladeren,...)
+	/// - Proper
+	/// - Nat, plassen+Proper
+	/// 
+	column road_condition_nl
+		dataType: string
+		isHidden
+		lineageTag: 7f6fd20a-b951-4e24-8840-8d26653e82cf
+		summarizeBy: none
+		sourceColumn: road_condition_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition road_condition = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_road_condition = Source{[Schema="dbo",Item="road_condition"]}[Data]
+				in
+				    dbo_road_condition
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Exception
+

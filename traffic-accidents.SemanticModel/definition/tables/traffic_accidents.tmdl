@@ -1,0 +1,272 @@
+/// Fact table where each row represents a traffic accident. The traffic accidents took place in Belgium over several years. As Belgium is multilingual, the dimension tables contain Dutch and French columns.
+table traffic_accidents
+	lineageTag: 5af66a1e-5ebc-44c1-9603-5ed7533d9c9f
+	sourceLineageTag: [dbo].[traffic_accidents]
+
+	measure number_of_traffic_accidents = COUNTROWS(traffic_accidents)
+		formatString: 0
+		lineageTag: c3696d0f-5ebe-43dd-9bc9-f40958f4a3df
+
+		changedProperty = Name
+
+	/// The year when the accident took place.
+	column year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b3dc8775-fc47-4fdb-b436-9f0f232889a3
+		sourceLineageTag: year
+		summarizeBy: none
+		sourceColumn: year
+
+		changedProperty = SummarizeBy
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = User
+
+	/// The month in which the accident took place (1 being January and 12 December)
+	column month
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6b8edbb2-ee89-434e-9adc-1b8a8224aea3
+		sourceLineageTag: month
+		summarizeBy: none
+		sourceColumn: month
+
+		changedProperty = SummarizeBy
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = User
+
+	/// The hour when the accident took place. Can be any value between 0 and 23 as well as null.
+	column hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a8e7012b-90d1-46b2-85d1-7af753df2ca6
+		sourceLineageTag: hour
+		summarizeBy: none
+		sourceColumn: hour
+
+		changedProperty = Description
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	column nis_code
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f88ee83b-4909-418f-bc1d-e2053cdb65b0
+		sourceLineageTag: nis_code
+		summarizeBy: none
+		sourceColumn: nis_code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Together with longitude forms the coordinates of where the accident took place.
+	column latitude
+		dataType: double
+		sourceProviderType: real
+		lineageTag: a6acb52b-0aa9-4ece-8941-66a276aefae1
+		sourceLineageTag: latitude
+		summarizeBy: none
+		sourceColumn: latitude
+
+		changedProperty = Description
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Together with latitude forms the coordinates of where the accident took place.
+	column longitude
+		dataType: double
+		sourceProviderType: real
+		lineageTag: c29c77a1-5c15-43a5-b86e-f0ee035b187b
+		sourceLineageTag: longitude
+		summarizeBy: none
+		sourceColumn: longitude
+
+		changedProperty = SummarizeBy
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column crossway_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: dfa825b9-52c2-411e-a88a-daaa3632e899
+		sourceLineageTag: crossway_id
+		summarizeBy: none
+		sourceColumn: crossway_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column weather_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f58d1f74-b25b-4f57-8df2-4b1f96307d47
+		sourceLineageTag: weather_id
+		summarizeBy: none
+		sourceColumn: weather_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column road_condition_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 76d33629-176d-4560-b5fb-b16c7d6fca5a
+		sourceLineageTag: road_condition_id
+		summarizeBy: none
+		sourceColumn: road_condition_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column build_up_area_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 43a5e968-5288-44cb-a82b-d62b9c7b9dac
+		sourceLineageTag: build_up_area_id
+		summarizeBy: none
+		sourceColumn: build_up_area_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column light_condition_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 90f42b5a-cf1d-431a-a9cd-31a041e8f396
+		sourceLineageTag: light_condition_id
+		summarizeBy: none
+		sourceColumn: light_condition_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column road_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: fb1de75c-0525-43d6-bec6-87e8ba9e0e1a
+		sourceLineageTag: road_type_id
+		summarizeBy: none
+		sourceColumn: road_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column accident_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0f9002bc-2083-4df3-9d44-5db7ecc7479e
+		sourceLineageTag: accident_type_id
+		summarizeBy: none
+		sourceColumn: accident_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_road_user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 37e4409e-05ef-4d39-b974-3f17342897e7
+		sourceLineageTag: first_road_user_id
+		summarizeBy: none
+		sourceColumn: first_road_user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column second_road_user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f3258af1-4028-4e12-98d4-eba95a58830a
+		sourceLineageTag: second_road_user_id
+		summarizeBy: none
+		sourceColumn: second_road_user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column collision_type_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d2f6e737-8df1-4b96-b13e-b48a6991d40a
+		sourceLineageTag: collision_type_id
+		summarizeBy: none
+		sourceColumn: collision_type_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column obstacle_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3bbb2f6f-5c25-4bd3-b23e-f5279e51a191
+		sourceLineageTag: obstacle_id
+		summarizeBy: none
+		sourceColumn: obstacle_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition traffic_accidents = entity
+		mode: directLake
+		source
+			entityName: traffic_accidents
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

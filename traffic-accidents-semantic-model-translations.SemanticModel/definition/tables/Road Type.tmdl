@@ -1,0 +1,62 @@
+/// Dimension table containing information on type of road. 
+/// 
+/// Examples: 
+/// Unknown, Municipal road, highway, regional road
+table 'Road Type'
+	lineageTag: 2ee86698-47bf-4c96-a358-b9fac0f0b307
+
+	/// road type at the place of the accident Examples: 
+	/// Unknown, Municipal road, highway, regional road
+	column 'Road Type'
+		lineageTag: 7767796f-5720-4075-a2c7-543aad115749
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: Fields
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fields
+		isHidden
+		lineageTag: 1a29a8f1-bbf6-435e-b019-fb4f9731d487
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: aa7d607f-5529-4c16-844c-06c2aca0992c
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: c813350a-187d-4639-952f-2aeb9b88da34
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Road Type' = calculated
+		mode: import
+		source =
+				{
+				    ("Type de route", NAMEOF('road_type'[road_type_fr]), 0, "fr"),
+				    ("Type weg", NAMEOF('road_type'[road_type_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = 790011e8ecae440b90549b74fca9d627
+

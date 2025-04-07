@@ -1,0 +1,65 @@
+/// Dimension table containing information on if the accident took place at a crossway, three options possible:
+/// - unknown
+/// - outside of a crossing,
+/// - at a crossing
+table crossway
+	lineageTag: c0eda117-0d9b-499e-aedc-265946270975
+	sourceLineageTag: [dbo].[crossway]
+
+	column crossway_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f17730db-4174-442b-ba59-8377cc10d0ef
+		sourceLineageTag: crossway_id
+		summarizeBy: none
+		sourceColumn: crossway_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description of whether the accident took place at a crossing, possible values:
+	/// - inconnu
+	/// - Hors carrefour
+	/// - Carrefour
+	column crossway_fr
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 573ff111-81b3-4189-acfb-8e8dfe592c64
+		sourceLineageTag: crossway_fr
+		summarizeBy: none
+		sourceColumn: crossway_fr
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description of whether the accident took place at a crossing, possible values:
+	/// - onbekend
+	/// - Buiten Kruispunt
+	/// - Op Kruispunt
+	column crossway_nl
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c18b19da-8b18-47ae-86f1-934ee9763010
+		sourceLineageTag: crossway_nl
+		summarizeBy: none
+		sourceColumn: crossway_nl
+
+		changedProperty = Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition crossway = entity
+		mode: directLake
+		source
+			entityName: crossway
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	changedProperty = Description
+
+	annotation PBI_ResultType = Table
+

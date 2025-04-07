@@ -1,0 +1,61 @@
+/// Dimension table containing information on the area building up to the accident, examples:
+/// - unknown
+/// - inside built-up area
+/// - outside built-up area
+table build_up_area
+	isHidden
+	lineageTag: 9ecd3903-bfc5-47e5-8a6f-1ef2fb6d6d4c
+
+	column build_up_area_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0d15db69-fe66-470d-8f36-b01534f9d6c1
+		summarizeBy: none
+		sourceColumn: build_up_area_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// French description containing information on the area building up to the accident, examples:
+	/// - inconnu
+	/// - Hors agglomération
+	/// - En agglomération
+	column build_up_area_fr
+		dataType: string
+		isHidden
+		lineageTag: 777d5d9c-76a5-4851-843c-315f1dac566b
+		summarizeBy: none
+		sourceColumn: build_up_area_fr
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dutch description containing information on the area building up to the accident, examples:
+	/// - onbekend
+	/// - buiten bebouwde kom
+	/// - binnen bebouwde kom
+	column build_up_area_nl
+		dataType: string
+		isHidden
+		lineageTag: 1b5c0df8-d7cb-49d3-b752-6215ef5e1acd
+		summarizeBy: none
+		sourceColumn: build_up_area_nl
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition build_up_area = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("6ns37iy3jbgebnu5m7s33girv4-22ubbd3qspsutm6iqlpoasq75q.datawarehouse.fabric.microsoft.com", "lh_traffic_accidents_gold"),
+				    dbo_build_up_area = Source{[Schema="dbo",Item="build_up_area"]}[Data]
+				in
+				    dbo_build_up_area
+
+	changedProperty = IsHidden
+

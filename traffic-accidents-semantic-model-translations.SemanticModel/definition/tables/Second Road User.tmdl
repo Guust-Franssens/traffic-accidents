@@ -1,0 +1,61 @@
+/// Dimension table containing information of the second road user. A traffic accident can have one or two involved road users. There is another table called "first_road_user" that contains the information of the other party.
+table 'Second Road User'
+	lineageTag: 40e840c9-e859-4707-a845-438034fd461a
+
+	/// description of the second road user, some examples:
+	/// - car
+	/// - truck
+	/// - pedestrian
+	column 'Second Road User'
+		lineageTag: 8c02613b-7487-4cc9-b07d-dc71730154f3
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: SortOrder
+
+		relatedColumnDetails
+			groupByColumn: 'Translated Second Road User Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Translated Second Road User Fields'
+		isHidden
+		lineageTag: e109fff4-39dd-4d4c-b5f9-a68946402c92
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: SortOrder
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		isHidden
+		formatString: 0
+		lineageTag: 2420c584-4da9-43f8-9562-8c7374595d18
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LanguageId
+		isHidden
+		lineageTag: 0327b057-52f4-4d6a-a17e-861b746eefcf
+		summarizeBy: none
+		sourceColumn: [Value4]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Second Road User' = calculated
+		mode: import
+		source =
+				{
+				    ("Deuxième usager de la route", NAMEOF('second_road_user'[second_road_user_fr]), 0, "fr"),
+				    ("Tweede weggebruiker", NAMEOF('second_road_user'[second_road_user_nl]), 1, "nl")
+				}
+
+	annotation PBI_Id = 038952589b3c47098d3ab3ebe8f6c84b
+
